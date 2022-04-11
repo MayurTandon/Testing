@@ -1,0 +1,751 @@
+ {
+  "tray_export_version": 4,
+  "export_type": "workflow",
+  "workflows": [
+    {
+      "id": "295d77c4-dadb-4ec1-9a89-208437115078",
+      "created": "2021-12-28T05:10:11.317798Z",
+      "workspace_id": "91f4b273-5907-4536-b741-4b056646e02b",
+      "creator": "3187a563-5419-4c46-a302-acd8e9deda65",
+      "version": {
+        "id": "cacc6094-6dba-4ca0-94ec-7187fe57b5ec",
+        "created": "2021-12-28T10:17:02.648931Z"
+      },
+      "title": "Universal - New Chatter Post in Salesforce Trigger",
+      "enabled": true,
+      "tags": [
+        "universal",
+        "automation guild"
+      ],
+      "settings": {
+        "config": {},
+        "alerting_workflow_id": "9459d87a-fc7b-453a-ac9c-1192fa9d8034",
+        "input_schema": {},
+        "output_schema": {}
+      },
+      "steps_structure": [
+        {
+          "name": "trigger",
+          "type": "normal",
+          "content": {}
+        },
+        {
+          "name": "loop-1",
+          "type": "loop",
+          "content": {
+            "_loop": [
+              {
+                "name": "salesforce-1",
+                "type": "normal",
+                "content": {}
+              },
+              {
+                "name": "boolean-condition-1",
+                "type": "branch",
+                "content": {
+                  "true": [
+                    {
+                      "name": "boolean-condition-5",
+                      "type": "branch",
+                      "content": {
+                        "true": [
+                          {
+                            "name": "salesforce-4",
+                            "type": "normal",
+                            "content": {}
+                          },
+                          {
+                            "name": "call-workflow-3",
+                            "type": "normal",
+                            "content": {}
+                          }
+                        ],
+                        "false": []
+                      }
+                    }
+                  ],
+                  "false": [
+                    {
+                      "name": "boolean-condition-2",
+                      "type": "branch",
+                      "content": {
+                        "true": [
+                          {
+                            "name": "boolean-condition-3",
+                            "type": "branch",
+                            "content": {
+                              "true": [
+                                {
+                                  "name": "salesforce-3",
+                                  "type": "normal",
+                                  "content": {}
+                                },
+                                {
+                                  "name": "call-workflow-2",
+                                  "type": "normal",
+                                  "content": {}
+                                }
+                              ],
+                              "false": []
+                            }
+                          }
+                        ],
+                        "false": []
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "steps": {
+        "salesforce-3": {
+          "title": "Get Offer Id",
+          "connector": {
+            "name": "salesforce",
+            "version": "6.1"
+          },
+          "operation": "find_records",
+          "output_schema": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "Total count"
+              },
+              "next_page_offset": {
+                "type": "string",
+                "title": "Next page offset"
+              },
+              "records": {
+                "title": "Offers",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "Offer",
+                  "properties": {
+                    "Id": {
+                      "name": "Id",
+                      "type": "string",
+                      "title": "Offer ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "conditions_type": {
+              "type": "string",
+              "value": "Match all conditions"
+            },
+            "fields": {
+              "value": [
+                {
+                  "value": "Id",
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            "object": {
+              "value": "Opportunity",
+              "type": "string"
+            },
+            "conditions": {
+              "value": [
+                {
+                  "value": {
+                    "field": {
+                      "value": "Id",
+                      "type": "string"
+                    },
+                    "operator": {
+                      "value": "Equal to",
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-1.records[0].ParentId"
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        "call-workflow-3": {
+          "title": "Call Workflow",
+          "connector": {
+            "name": "call-workflow",
+            "version": "2.0"
+          },
+          "operation": "fire_and_forget",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "workflow_id": {
+              "type": "string",
+              "value": "a3cc842e-acf8-4b8d-b3e6-d766742bf1a9"
+            },
+            "trigger_input": {
+              "type": "jsonpath",
+              "value": "$.steps.salesforce-4"
+            }
+          }
+        },
+        "boolean-condition-5": {
+          "title": "Cease & Desist w Demand",
+          "description": "Cease and Desist with Demand",
+          "connector": {
+            "name": "boolean-condition",
+            "version": "2.2"
+          },
+          "operation": "boolean_condition",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "conditions": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "object",
+                  "value": {
+                    "value1": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-1.records[0].Title"
+                    },
+                    "comparison_type": {
+                      "type": "string",
+                      "value": "contains"
+                    },
+                    "value2": {
+                      "type": "string",
+                      "value": "Cease and Desist with Demand"
+                    }
+                  }
+                }
+              ]
+            },
+            "strictness": {
+              "type": "string",
+              "value": "All"
+            }
+          }
+        },
+        "boolean-condition-2": {
+          "title": "Is ePOA received",
+          "connector": {
+            "name": "boolean-condition",
+            "version": "2.2"
+          },
+          "operation": "boolean_condition",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "conditions": {
+              "value": [
+                {
+                  "value": {
+                    "value1": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-1.records[0].Body"
+                    },
+                    "comparison_type": {
+                      "value": "contains",
+                      "type": "string"
+                    },
+                    "value2": {
+                      "value": "ePOA received",
+                      "type": "string"
+                    },
+                    "is_case_sensitive": {
+                      "value": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "type": "array"
+            },
+            "strictness": {
+              "type": "string",
+              "value": "All"
+            }
+          }
+        },
+        "call-workflow-2": {
+          "title": "Call Workflow",
+          "description": "Title Solutions",
+          "connector": {
+            "name": "call-workflow",
+            "version": "2.0"
+          },
+          "operation": "fire_and_forget",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "workflow_id": {
+              "value": "e984a78a-326c-42b1-ae03-48f07617166e",
+              "type": "string"
+            },
+            "trigger_input": {
+              "value": "$.steps.salesforce-3",
+              "type": "jsonpath"
+            }
+          }
+        },
+        "loop-1": {
+          "title": "Loop Collection",
+          "connector": {
+            "name": "loop",
+            "version": "1.1"
+          },
+          "operation": "loop_array",
+          "output_schema": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-03/schema",
+            "id": "http://jsonschema.net",
+            "required": true,
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Id"
+                ]
+              },
+              "count": {
+                "type": "number",
+                "id": "http://jsonschema.net/total"
+              },
+              "index": {
+                "type": "number",
+                "id": "http://jsonschema.net/index"
+              },
+              "is_first": {
+                "type": "boolean",
+                "id": "http://jsonschema.net/is_first"
+              },
+              "is_last": {
+                "type": "boolean",
+                "id": "http://jsonschema.net/is_last"
+              }
+            }
+          },
+          "error_handling": {},
+          "properties": {
+            "array": {
+              "type": "jsonpath",
+              "value": "$.steps.trigger.events"
+            }
+          }
+        },
+        "boolean-condition-1": {
+          "title": "Is Post Null",
+          "connector": {
+            "name": "boolean-condition",
+            "version": "2.2"
+          },
+          "operation": "boolean_condition",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "conditions": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "object",
+                  "value": {
+                    "value1": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-1.records[0].Body"
+                    },
+                    "comparison_type": {
+                      "type": "string",
+                      "value": "==="
+                    },
+                    "value2": {
+                      "type": "null",
+                      "value": null
+                    }
+                  }
+                }
+              ]
+            },
+            "strictness": {
+              "type": "string",
+              "value": "All"
+            }
+          }
+        },
+        "salesforce-4": {
+          "title": "Get Offer Id",
+          "connector": {
+            "name": "salesforce",
+            "version": "6.1"
+          },
+          "operation": "find_records",
+          "output_schema": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "Total count"
+              },
+              "next_page_offset": {
+                "type": "string",
+                "title": "Next page offset"
+              },
+              "records": {
+                "title": "Offers",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "Offer",
+                  "properties": {
+                    "Id": {
+                      "name": "Id",
+                      "type": "string",
+                      "title": "Offer ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "conditions_type": {
+              "type": "string",
+              "value": "Match all conditions"
+            },
+            "fields": {
+              "value": [
+                {
+                  "value": "Id",
+                  "type": "string"
+                }
+              ],
+              "type": "array"
+            },
+            "object": {
+              "value": "Opportunity",
+              "type": "string"
+            },
+            "conditions": {
+              "value": [
+                {
+                  "value": {
+                    "field": {
+                      "value": "Id",
+                      "type": "string"
+                    },
+                    "operator": {
+                      "value": "Equal to",
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-1.records[0].ParentId"
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        "salesforce-1": {
+          "title": "Get Post Details",
+          "connector": {
+            "name": "salesforce",
+            "version": "6.1"
+          },
+          "operation": "find_records",
+          "output_schema": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "Total count"
+              },
+              "next_page_offset": {
+                "type": "string",
+                "title": "Next page offset"
+              },
+              "records": {
+                "title": "Feed Items",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "Feed Item",
+                  "properties": {
+                    "Body": {
+                      "name": "Body",
+                      "type": "string",
+                      "title": "Body"
+                    },
+                    "ParentId": {
+                      "name": "ParentId",
+                      "type": "string",
+                      "title": "Parent ID"
+                    },
+                    "CreatedById": {
+                      "name": "CreatedById",
+                      "type": "string",
+                      "title": "Created By ID"
+                    },
+                    "Title": {
+                      "name": "Title",
+                      "type": "string",
+                      "title": "Title"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "conditions_type": {
+              "type": "string",
+              "value": "Match all conditions"
+            },
+            "fields": {
+              "type": "array",
+              "value": [
+                {
+                  "value": "Body",
+                  "type": "string"
+                },
+                {
+                  "value": "ParentId",
+                  "type": "string"
+                },
+                {
+                  "value": "CreatedById",
+                  "type": "string"
+                },
+                {
+                  "type": "string",
+                  "value": "Title"
+                }
+              ]
+            },
+            "object": {
+              "value": "FeedItem",
+              "type": "string"
+            },
+            "conditions": {
+              "value": [
+                {
+                  "value": {
+                    "field": {
+                      "value": "Id",
+                      "type": "string"
+                    },
+                    "operator": {
+                      "value": "Equal to",
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "jsonpath",
+                      "value": "$.steps.loop-1.value.Id"
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        "boolean-condition-3": {
+          "title": "Created by System",
+          "connector": {
+            "name": "boolean-condition",
+            "version": "2.2"
+          },
+          "operation": "boolean_condition",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "conditions": {
+              "value": [
+                {
+                  "value": {
+                    "value1": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-1.records[0].CreatedById"
+                    },
+                    "comparison_type": {
+                      "type": "string",
+                      "value": "==="
+                    },
+                    "value2": {
+                      "value": "005500000013hm1AAA",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "type": "array"
+            },
+            "strictness": {
+              "type": "string",
+              "value": "All"
+            }
+          }
+        },
+        "trigger": {
+          "title": "Listen for Chatter Posts",
+          "connector": {
+            "name": "salesforce-notification",
+            "version": "2.9"
+          },
+          "operation": "record_create",
+          "output_schema": {},
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "access_token": {
+              "type": "jsonpath",
+              "value": "$.auth.access_token"
+            },
+            "instance_url": {
+              "type": "jsonpath",
+              "value": "$.auth.instance_url"
+            },
+            "object_prefix": {
+              "type": "string",
+              "value": "Tray"
+            },
+            "public_url": {
+              "type": "jsonpath",
+              "value": "$.env.public_url"
+            },
+            "identity_url": {
+              "type": "jsonpath",
+              "value": "$.auth.id"
+            },
+            "object": {
+              "value": "FeedItem",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "dependencies": [
+        {
+          "id": "a3cc842e-acf8-4b8d-b3e6-d766742bf1a9",
+          "name": "Loss Prevention - Create Case Upon Sending Cease and Desist With Demand Payment"
+        },
+        {
+          "id": "e984a78a-326c-42b1-ae03-48f07617166e",
+          "name": "Title Solutions - Create Alert When a Completed ePOA is Received"
+        }
+      ]
+    }
+  ],
+  "projects": []
+}

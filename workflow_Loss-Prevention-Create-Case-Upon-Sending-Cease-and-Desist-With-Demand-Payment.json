@@ -1,0 +1,460 @@
+ {
+  "tray_export_version": 4,
+  "export_type": "workflow",
+  "workflows": [
+    {
+      "id": "a3cc842e-acf8-4b8d-b3e6-d766742bf1a9",
+      "created": "2021-12-28T05:09:24.411108Z",
+      "workspace_id": "91f4b273-5907-4536-b741-4b056646e02b",
+      "creator": "3187a563-5419-4c46-a302-acd8e9deda65",
+      "version": {
+        "id": "5f430944-7699-4947-a5a5-04b62887b75f",
+        "created": "2021-12-28T05:19:15.393979Z"
+      },
+      "title": "Loss Prevention - Create Case Upon Sending Cease and Desist With Demand Payment",
+      "enabled": true,
+      "tags": [
+        "loss prevention",
+        "automation guild"
+      ],
+      "settings": {
+        "config": {},
+        "alerting_workflow_id": "9459d87a-fc7b-453a-ac9c-1192fa9d8034",
+        "input_schema": {},
+        "output_schema": {}
+      },
+      "steps_structure": [
+        {
+          "name": "trigger",
+          "type": "normal",
+          "content": {}
+        },
+        {
+          "name": "loop-1",
+          "type": "loop",
+          "content": {
+            "_loop": [
+              {
+                "name": "salesforce-2",
+                "type": "normal",
+                "content": {}
+              }
+            ]
+          }
+        },
+        {
+          "name": "date-time-helpers-1",
+          "type": "normal",
+          "content": {}
+        },
+        {
+          "name": "date-time-helpers-2",
+          "type": "normal",
+          "content": {}
+        },
+        {
+          "name": "salesforce-1",
+          "type": "normal",
+          "content": {}
+        }
+      ],
+      "steps": {
+        "loop-1": {
+          "title": "Loop Collection",
+          "connector": {
+            "name": "loop",
+            "version": "1.1"
+          },
+          "operation": "loop_array",
+          "output_schema": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-03/schema",
+            "id": "http://jsonschema.net",
+            "required": true,
+            "additionalProperties": false,
+            "properties": {
+              "value": {},
+              "count": {
+                "type": "number",
+                "id": "http://jsonschema.net/total"
+              },
+              "index": {
+                "type": "number",
+                "id": "http://jsonschema.net/index"
+              },
+              "is_first": {
+                "type": "boolean",
+                "id": "http://jsonschema.net/is_first"
+              },
+              "is_last": {
+                "type": "boolean",
+                "id": "http://jsonschema.net/is_last"
+              }
+            }
+          },
+          "error_handling": {},
+          "properties": {
+            "array": {
+              "type": "jsonpath",
+              "value": "$.steps.trigger.records"
+            }
+          }
+        },
+        "salesforce-1": {
+          "title": "Create Case",
+          "connector": {
+            "name": "salesforce",
+            "version": "6.3"
+          },
+          "operation": "create_record",
+          "output_schema": {},
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "object": {
+              "type": "string",
+              "value": "Case"
+            },
+            "fields": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "OwnerId"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "00G1T0000044SEYUA2"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Priority"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "High"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Due__c"
+                    },
+                    "value": {
+                      "type": "jsonpath",
+                      "value": "$.steps.date-time-helpers-2.result"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Origin"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "Workflow"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Subject"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "Loss Prevention - Cease and Desist Follow-up - Case"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Description"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "Contact the seller to obtain reimbursement from Cease and Desist letter."
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "RecordTypeId"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "0121T00000023jFQAQ"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Status"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "Open"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "key": {
+                      "type": "string",
+                      "value": "Claim_ID__c"
+                    },
+                    "value": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-2.records[0].Id"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "date-time-helpers-1": {
+          "title": "Current Timestamp",
+          "connector": {
+            "name": "date-time-helpers",
+            "version": "2.1"
+          },
+          "operation": "current_timestamp",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "timezone": {
+              "type": "string",
+              "value": "America/Chicago"
+            },
+            "format": {
+              "value": {
+                "existing_format": {
+                  "type": "string",
+                  "value": "YYYY-MM-DDTHH:mm:ssZ"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "salesforce-2": {
+          "title": "Get Offer",
+          "connector": {
+            "name": "salesforce",
+            "version": "6.3"
+          },
+          "operation": "find_records",
+          "output_schema": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "Total count"
+              },
+              "next_page_offset": {
+                "type": "string",
+                "title": "Next page offset"
+              },
+              "records": {
+                "title": "Offers",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "Offer",
+                  "properties": {
+                    "Id": {
+                      "name": "Id",
+                      "type": "string",
+                      "title": "Offer ID"
+                    },
+                    "Name": {
+                      "name": "Name",
+                      "type": "string",
+                      "title": "Offer ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "conditions_type": {
+              "type": "string",
+              "value": "Match all conditions"
+            },
+            "fields": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "string",
+                  "value": "Id"
+                },
+                {
+                  "type": "string",
+                  "value": "Name"
+                }
+              ]
+            },
+            "object": {
+              "type": "string",
+              "value": "Opportunity"
+            },
+            "conditions": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "object",
+                  "value": {
+                    "field": {
+                      "type": "string",
+                      "value": "Id"
+                    },
+                    "operator": {
+                      "type": "string",
+                      "value": "Equal to"
+                    },
+                    "value": {
+                      "type": "jsonpath",
+                      "value": "$.steps.loop-1.value.Id"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "date-time-helpers-2": {
+          "title": "Add 3 Weeks",
+          "connector": {
+            "name": "date-time-helpers",
+            "version": "2.1"
+          },
+          "operation": "plus",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "date": {
+              "type": "jsonpath",
+              "value": "$.steps.date-time-helpers-1.result"
+            },
+            "hours": {
+              "type": "integer",
+              "value": 0
+            },
+            "months": {
+              "type": "integer",
+              "value": 0
+            },
+            "business_days": {
+              "type": "integer",
+              "value": 0
+            },
+            "years": {
+              "type": "integer",
+              "value": 0
+            },
+            "days": {
+              "type": "integer",
+              "value": 0
+            },
+            "minutes": {
+              "type": "integer",
+              "value": 0
+            },
+            "seconds": {
+              "type": "integer",
+              "value": 0
+            },
+            "weeks": {
+              "type": "integer",
+              "value": 3
+            }
+          }
+        },
+        "trigger": {
+          "title": "Callable Trigger",
+          "connector": {
+            "name": "callable-trigger",
+            "version": "2.0"
+          },
+          "operation": "trigger",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {}
+        }
+      },
+      "dependencies": []
+    }
+  ],
+  "projects": []
+}

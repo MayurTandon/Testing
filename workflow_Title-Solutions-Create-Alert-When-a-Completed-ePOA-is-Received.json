@@ -1,0 +1,392 @@
+ {
+  "tray_export_version": 4,
+  "export_type": "workflow",
+  "workflows": [
+    {
+      "id": "e984a78a-326c-42b1-ae03-48f07617166e",
+      "created": "2021-12-28T05:07:43.420338Z",
+      "workspace_id": "91f4b273-5907-4536-b741-4b056646e02b",
+      "creator": "3187a563-5419-4c46-a302-acd8e9deda65",
+      "version": {
+        "id": "8346d419-522f-4ffb-94b9-1ba2955e679a",
+        "created": "2021-12-28T11:56:42.445505Z"
+      },
+      "title": "Title Solutions - Create Alert When a Completed ePOA is Received",
+      "enabled": true,
+      "tags": [
+        "title solutions",
+        "automation guild"
+      ],
+      "settings": {
+        "config": {
+          "text": "*Offer ID <https://peddle--devsndbox.my.salesforce.com/{$.steps.salesforce-2.records[0].Id}|  {$.steps.salesforce-2.records[0].Name} > * ePOA received "
+        },
+        "alerting_workflow_id": "9459d87a-fc7b-453a-ac9c-1192fa9d8034",
+        "input_schema": {},
+        "output_schema": {}
+      },
+      "steps_structure": [
+        {
+          "name": "trigger",
+          "type": "normal",
+          "content": {}
+        },
+        {
+          "name": "loop-1",
+          "type": "loop",
+          "content": {
+            "_loop": [
+              {
+                "name": "salesforce-2",
+                "type": "normal",
+                "content": {}
+              }
+            ]
+          }
+        },
+        {
+          "name": "boolean-condition-1",
+          "type": "branch",
+          "content": {
+            "true": [
+              {
+                "name": "slack-1",
+                "type": "normal",
+                "content": {}
+              }
+            ],
+            "false": []
+          }
+        }
+      ],
+      "steps": {
+        "slack-1": {
+          "title": "Post title-solutions-alert",
+          "connector": {
+            "name": "slack",
+            "version": "8.1"
+          },
+          "operation": "send_message",
+          "output_schema": {},
+          "error_handling": {},
+          "authentication": {
+            "group": "20b3dfff-aea4-43b8-b8d0-4252d3bfa919",
+            "title": "Arjun Kansagara - Slack - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/artisan/icons/c25033a972715dbbdb7e73ac79261230.png"
+            },
+            "scopes": [
+              "links:write",
+              "files:write:user",
+              "users:write",
+              "users:read.email",
+              "links:read",
+              "files:read",
+              "team:read",
+              "reminders:write",
+              "users.profile:write",
+              "reactions:write",
+              "users:read",
+              "groups:write",
+              "mpim:history",
+              "pins:write",
+              "stars:write",
+              "stars:read",
+              "reminders:read",
+              "mpim:write",
+              "mpim:read",
+              "emoji:read",
+              "im:read",
+              "usergroups:read",
+              "dnd:read",
+              "channels:read",
+              "reactions:read",
+              "pins:read",
+              "chat:write:user",
+              "im:history",
+              "users.profile:read",
+              "im:write",
+              "groups:history",
+              "channels:write",
+              "channels:history",
+              "usergroups:write",
+              "groups:read",
+              "calls:read",
+              "dnd:write",
+              "chat:write:bot",
+              "commands"
+            ],
+            "service_name": "slack",
+            "service_version": 4
+          },
+          "properties": {
+            "icon_emoji": {
+              "type": "string",
+              "value": ""
+            },
+            "channel": {
+              "value": "GDMCBFPGV",
+              "type": "string"
+            },
+            "link_names": {
+              "type": "boolean",
+              "value": false
+            },
+            "reply_broadcast": {
+              "type": "boolean",
+              "value": false
+            },
+            "text": {
+              "type": "string",
+              "value": "*Offer ID <https://peddle--devsndbox.my.salesforce.com/{$.steps.salesforce-2.records[0].Id}| {$.steps.salesforce-2.records[0].Name}  > * ePOA received "
+            },
+            "parse": {
+              "type": "string",
+              "value": "none"
+            },
+            "username": {
+              "type": "string",
+              "value": "Tray.io"
+            },
+            "as_user": {
+              "type": "boolean",
+              "value": false
+            },
+            "token": {
+              "type": "jsonpath",
+              "value": "$.auth.access_token"
+            }
+          }
+        },
+        "loop-1": {
+          "title": "Loop Collection",
+          "connector": {
+            "name": "loop",
+            "version": "1.1"
+          },
+          "operation": "loop_array",
+          "output_schema": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-03/schema",
+            "id": "http://jsonschema.net",
+            "required": true,
+            "additionalProperties": false,
+            "properties": {
+              "value": {},
+              "count": {
+                "type": "number",
+                "id": "http://jsonschema.net/total"
+              },
+              "index": {
+                "type": "number",
+                "id": "http://jsonschema.net/index"
+              },
+              "is_first": {
+                "type": "boolean",
+                "id": "http://jsonschema.net/is_first"
+              },
+              "is_last": {
+                "type": "boolean",
+                "id": "http://jsonschema.net/is_last"
+              }
+            }
+          },
+          "error_handling": {},
+          "properties": {
+            "array": {
+              "value": "$.steps.trigger.records",
+              "type": "jsonpath"
+            }
+          }
+        },
+        "boolean-condition-1": {
+          "title": "Offer Owner is System",
+          "connector": {
+            "name": "boolean-condition",
+            "version": "2.2"
+          },
+          "operation": "boolean_condition",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {
+            "conditions": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "object",
+                  "value": {
+                    "value1": {
+                      "type": "jsonpath",
+                      "value": "$.steps.salesforce-2.total"
+                    },
+                    "comparison_type": {
+                      "type": "string",
+                      "value": ">"
+                    },
+                    "value2": {
+                      "type": "number",
+                      "value": 0
+                    }
+                  }
+                }
+              ]
+            },
+            "strictness": {
+              "type": "string",
+              "value": "All"
+            }
+          }
+        },
+        "salesforce-2": {
+          "title": "Link Offer ID",
+          "connector": {
+            "name": "salesforce",
+            "version": "5.5"
+          },
+          "operation": "find_records",
+          "output_schema": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "title": "Total count"
+              },
+              "next_page_offset": {
+                "type": "string",
+                "title": "Next page offset"
+              },
+              "records": {
+                "title": "Offers",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "Offer",
+                  "properties": {
+                    "Id": {
+                      "name": "Id",
+                      "type": "string",
+                      "title": "Offer ID"
+                    },
+                    "OwnerId": {
+                      "name": "OwnerId",
+                      "type": "string",
+                      "title": "Offer Owner"
+                    },
+                    "Name": {
+                      "name": "Name",
+                      "type": "string",
+                      "title": "Offer ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "error_handling": {},
+          "authentication": {
+            "group": "1b23a670-6482-438c-a2e1-7aeaf9bc0726",
+            "title": "Arjun Kansagara - Salesforce - Authentication - Version 1.0",
+            "service_icon": {
+              "icon_type": "url",
+              "value": "//s3.amazonaws.com/images.tray.io/static/service/icons/a8ff6c9514c35c853b350382534fb624.png"
+            },
+            "scopes": [
+              "visualforce",
+              "refresh_token",
+              "full",
+              "id",
+              "chatter_api",
+              "custom_permissions",
+              "api",
+              "openid",
+              "web"
+            ],
+            "service_name": "salesforce",
+            "service_version": 1
+          },
+          "properties": {
+            "conditions_type": {
+              "type": "string",
+              "value": "Match all conditions"
+            },
+            "fields": {
+              "type": "array",
+              "value": [
+                {
+                  "value": "Id",
+                  "type": "string"
+                },
+                {
+                  "type": "string",
+                  "value": "OwnerId"
+                },
+                {
+                  "type": "string",
+                  "value": "Name"
+                }
+              ]
+            },
+            "object": {
+              "value": "Opportunity",
+              "type": "string"
+            },
+            "conditions": {
+              "type": "array",
+              "value": [
+                {
+                  "value": {
+                    "field": {
+                      "value": "Id",
+                      "type": "string"
+                    },
+                    "operator": {
+                      "value": "Equal to",
+                      "type": "string"
+                    },
+                    "value": {
+                      "value": "$.steps.loop-1.value.Id",
+                      "type": "jsonpath"
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "object",
+                  "value": {
+                    "field": {
+                      "type": "string",
+                      "value": "OwnerId"
+                    },
+                    "operator": {
+                      "type": "string",
+                      "value": "Equal to"
+                    },
+                    "value": {
+                      "type": "string",
+                      "value": "005500000013hm1AAA"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "trigger": {
+          "title": "Callable Trigger",
+          "connector": {
+            "name": "callable-trigger",
+            "version": "2.0"
+          },
+          "operation": "trigger",
+          "output_schema": {},
+          "error_handling": {},
+          "properties": {}
+        }
+      },
+      "dependencies": []
+    }
+  ],
+  "projects": []
+}
